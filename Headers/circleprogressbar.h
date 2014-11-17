@@ -18,6 +18,7 @@ class CircleProgressBar : public QWidget
     Q_OBJECT
 public:
     explicit CircleProgressBar(QWidget *parent = 0);
+    int getValue() const;
 
 protected:
     void paintEvent(QPaintEvent* event);
@@ -29,9 +30,10 @@ private:
     QPoint center;
 
 signals:
+    void valueChanged(int x);
 
 public slots:
     void setValue(int x);
-};
 
+};
 #endif // CIRCLEPROGRESSBAR_H
