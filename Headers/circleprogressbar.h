@@ -1,3 +1,12 @@
+/********************************************************
+ *
+ * CircleProgressBar.h
+ *
+ * Created by Mariusz Baran on 17.11.2014
+ * Copyright (c) 2014 Mariusz Baran. All rights reserved
+ *
+ ********************************************************/
+
 #ifndef CIRCLEPROGRESSBAR_H
 #define CIRCLEPROGRESSBAR_H
 
