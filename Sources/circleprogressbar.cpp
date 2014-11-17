@@ -1,5 +1,6 @@
 #include "circleprogressbar.h"
 
+
 CircleProgressBar::CircleProgressBar(QWidget *parent) :
     QWidget(parent)
 {
@@ -7,17 +8,10 @@ CircleProgressBar::CircleProgressBar(QWidget *parent) :
     center = QPoint(this->width()/2,this->height()/2);
 }
 
-void CircleProgressBar::setValue(int x)
-{
-    m_x = x;
-    repaint();
-}
-
 void CircleProgressBar::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.drawEllipse(center,radius,radius);
-
     if(m_x < 0){
         m_x=0;
     }
@@ -27,7 +21,6 @@ void CircleProgressBar::paintEvent(QPaintEvent *event)
         painter.setBrush(QBrush(Qt::black));
         painter.drawEllipse(center, radius*m_x/100, radius*m_x/100);
     }
-
 }
 
 void CircleProgressBar::resizeEvent(QResizeEvent *event)
@@ -37,3 +30,14 @@ void CircleProgressBar::resizeEvent(QResizeEvent *event)
     repaint();
 }
 
+void CircleProgressBar::setValue(int x)
+{
+    m_x = x;
+    emit valueChanged(m_x);
+    repaint();
+}
+
+int CircleProgressBar::getValue() const
+{
+    return m_x;
+}
