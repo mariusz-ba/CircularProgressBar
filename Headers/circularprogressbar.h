@@ -1,23 +1,23 @@
 /********************************************************
  *
- * CircleProgressBar.h
+ * CircularProgressBar.h
  *
  * Created by Mariusz Baran on 17.11.2014
  * Copyright (c) 2014 Mariusz Baran. All rights reserved
  *
  ********************************************************/
 
-#ifndef CIRCLEPROGRESSBAR_H
-#define CIRCLEPROGRESSBAR_H
+#ifndef CIRCULARPROGRESSBAR_H
+#define CIRCULARPROGRESSBAR_H
 
 #include <QWidget>
 #include <QtGui>
 
-class CircleProgressBar : public QWidget
+class CircularProgressBar : public QWidget
 {
     Q_OBJECT
 public:
-    explicit CircleProgressBar(QWidget *parent = 0);
+    explicit CircularProgressBar(QWidget *parent = 0);
     int getValue() const;
 
 protected:
@@ -36,4 +36,4 @@ public slots:
     void setValue(int x);
 
 };
-#endif // CIRCLEPROGRESSBAR_H
+#endif // CIRCULARPROGRESSBAR_H
