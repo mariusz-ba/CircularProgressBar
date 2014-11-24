@@ -1,2 +1,2 @@
-CircleProgressBar
-=================
+CircularProgressBar
+===================
