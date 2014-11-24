@@ -6,11 +6,13 @@ CircularProgressBar::CircularProgressBar(QWidget *parent) :
 {
     radius = qMin(this->width()/2, this->height()/2);
     center = QPoint(this->width()/2,this->height()/2);
+    fillColor = Qt::black;
 }
 
 void CircularProgressBar::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
+    //painter.setBrush(QBrush(borderColor));
     painter.drawEllipse(center,radius,radius);
     if(m_x < 0){
         m_x=0;
@@ -18,7 +20,7 @@ void CircularProgressBar::paintEvent(QPaintEvent *event)
     if(m_x > 100){
         m_x=100;
     }else{
-        painter.setBrush(QBrush(Qt::black));
+        painter.setBrush(QBrush(fillColor));
         painter.drawEllipse(center, radius*m_x/100, radius*m_x/100);
     }
 }
@@ -40,4 +42,10 @@ void CircularProgressBar::setValue(int x)
 int CircularProgressBar::getValue() const
 {
     return m_x;
+}
+
+void CircularProgressBar::setColor(QColor color)
+{
+    fillColor = color;
+    repaint();
 }
