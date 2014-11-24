@@ -32,7 +32,7 @@ private:
     QColor fillColor;
 
 signals:
-    void valueChanged(int x);       //This singnal is emited always when the setValue slot has occured
+    void valueChanged(int x);       //This singnal is emited always when the setValue slot has occurred
 
 public slots:
     void setValue(int x);           //Sets a value of progressbar (0.. 100)
