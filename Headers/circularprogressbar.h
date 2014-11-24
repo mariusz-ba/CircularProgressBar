@@ -18,7 +18,8 @@ class CircularProgressBar : public QWidget
     Q_OBJECT
 public:
     explicit CircularProgressBar(QWidget *parent = 0);
-    int getValue() const;
+    int getValue() const;       //This fucntion returns a progressbar value which is stored ind m_x variable as a radius of filled circle (0.. 100)
+    void setColor(QColor color);        //Sets a color of filled circle; Default color is black
 
 protected:
     void paintEvent(QPaintEvent* event);
@@ -28,12 +29,13 @@ private:
     int radius;
     int m_x;
     QPoint center;
+    QColor fillColor;
 
 signals:
-    void valueChanged(int x);
+    void valueChanged(int x);       //This singnal is emited always when the setValue slot has occured
 
 public slots:
-    void setValue(int x);
+    void setValue(int x);           //Sets a value of progressbar (0.. 100)
 
 };
 #endif // CIRCULARPROGRESSBAR_H
