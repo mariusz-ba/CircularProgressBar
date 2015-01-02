@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-11-17T18:53:57
+# Project created by QtCreator 2014-12-31T16:46:17
 #
 #-------------------------------------------------
 
@@ -8,15 +8,15 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = app
+TARGET = example
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        dialog.cpp \
+        mainwindow.cpp \
     circularprogressbar.cpp
 
-HEADERS  += dialog.h \
+HEADERS  += mainwindow.h \
     circularprogressbar.h
 
-FORMS    += dialog.ui
+FORMS    += mainwindow.ui
