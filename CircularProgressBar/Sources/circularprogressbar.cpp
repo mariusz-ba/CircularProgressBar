@@ -4,14 +4,16 @@
 CircularProgressBar::CircularProgressBar(QWidget *parent, TYPE typ) :
     QWidget(parent)
 {
-    radius = qMin(this->width()/2, this->height()/2);
+    m_type = typ;
+    radius = qMin(this->width()/2, this->height()/2)-1;
     center = QPoint(this->width()/2,this->height()/2);
     fillColor = Qt::black;
 }
 
-void CircularProgressBar::paintEvent(QPaintEvent *event)
+void CircularProgressBar::paintEvent(QPaintEvent* /*event*/)
 {
     QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
     painter.drawEllipse(center,radius,radius);
     if(m_x < 0){
         m_x=0;
@@ -30,25 +32,13 @@ void CircularProgressBar::paintEvent(QPaintEvent *event)
     case ROUNDING:{
         if(m_x != 0 && m_x != 100){
             painter.setBrush(QBrush(fillColor));
-            painter.drawLine(center.x(),center.y(),center.x(),center.y()-radius);
             double val = (double)m_x;
-            double angle = qDegreesToRadians(val/100*360);
 
-            int sinAR = (int) (qSin(angle)*radius);
-            int cosAR = (int) (qCos(angle)*radius);
+            int startAngle = 90 * 16;
+            int spanAngle = val/100*360 * 16 * -1;
+            QRectF rectangle(center.x()-radius,center.y()-radius,radius*2,radius*2);
+            painter.drawPie(rectangle,startAngle,spanAngle);
 
-            if(m_x <= 25){
-                painter.drawLine(center.x(),center.y(),center.x()+sinAR,center.y()-cosAR);
-            }
-            if(m_x > 25 && m_x <= 50){
-                painter.drawLine(center.x(),center.y(),center.x()+sinAR,center.y()-cosAR);
-            }
-            if(m_x > 50 && m_x <= 75){
-                painter.drawLine(center.x(),center.y(),center.x()+sinAR,center.y()-cosAR);
-            }
-            if(m_x > 75 && m_x <= 100){
-                painter.drawLine(center.x(),center.y(),center.x()+sinAR,center.y()-cosAR);
-            }
         }
         if(m_x == 100){
             painter.setBrush(QBrush(fillColor));
@@ -60,10 +50,10 @@ void CircularProgressBar::paintEvent(QPaintEvent *event)
 
 }
 
-void CircularProgressBar::resizeEvent(QResizeEvent *event)
+void CircularProgressBar::resizeEvent(QResizeEvent* /*event*/)
 {
     center = QPoint(this->width()/2,this->height()/2);
-    radius = qMin(this->width()/2, this->height()/2);
+    radius = qMin(this->width()/2, this->height()/2)-1;
     repaint();
 }
 
