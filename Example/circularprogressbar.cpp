@@ -2,12 +2,12 @@
 
 
 CircularProgressBar::CircularProgressBar(QWidget *parent, TYPE typ) :
-    QWidget(parent)
+    QWidget(parent), m_type(typ), renderVal(true), m_x(0)
 {
-    m_type = typ;
     radius = qMin(this->width()/2, this->height()/2)-1;
     center = QPoint(this->width()/2,this->height()/2);
     fillColor = Qt::black;
+    valueFont.setFamily("calibri");
 }
 
 void CircularProgressBar::paintEvent(QPaintEvent* /*event*/)
@@ -21,7 +21,6 @@ void CircularProgressBar::paintEvent(QPaintEvent* /*event*/)
     if(m_x > 100){
         m_x=100;
     }
-
 
     switch(m_type){
     case FILLING:{
@@ -48,12 +47,21 @@ void CircularProgressBar::paintEvent(QPaintEvent* /*event*/)
     }
     }
 
+    if(renderVal){
+        QFontMetrics fm(valueFont);
+        int val_width = fm.width(QString::number(m_x)+"%");
+        QPoint point(center.x()-val_width/2,center.y()+fm.height()/3);
+        painter.setFont(valueFont);
+        painter.drawText(point, QString::number(m_x)+"%");
+    }
+
 }
 
 void CircularProgressBar::resizeEvent(QResizeEvent* /*event*/)
 {
     center = QPoint(this->width()/2,this->height()/2);
     radius = qMin(this->width()/2, this->height()/2)-1;
+    valueFont.setPixelSize((int)(2.0/10*radius));
     repaint();
 }
 
@@ -69,13 +77,18 @@ int CircularProgressBar::getValue() const
     return m_x;
 }
 
+bool CircularProgressBar::isRenderValue() const
+{
+    return renderVal;
+}
+
 void CircularProgressBar::setColor(QColor color)
 {
     fillColor = color;
     repaint();
 }
 
-void CircularProgressBar::setType(TYPE typ)
+void CircularProgressBar::setType(CircularProgressBar::TYPE typ)
 {
     m_type = typ;
     repaint();
@@ -84,4 +97,20 @@ void CircularProgressBar::setType(TYPE typ)
 QPoint CircularProgressBar::getCenter() const
 {
     return center;
+}
+
+void CircularProgressBar::renderValue(bool b)
+{
+    renderVal = b;
+    repaint();
+}
+
+QFont CircularProgressBar::getValueFont() const
+{
+    return valueFont;
+}
+
+QColor CircularProgressBar::getColor() const
+{
+    return fillColor;
 }

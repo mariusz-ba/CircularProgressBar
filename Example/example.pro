@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-12-31T16:46:17
+# Project created by QtCreator 2015-01-04T15:50:52
 #
 #-------------------------------------------------
 
@@ -13,10 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+        dialog.cpp \
     circularprogressbar.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += dialog.h \
     circularprogressbar.h
 
-FORMS    += mainwindow.ui
+FORMS    += dialog.ui
