@@ -2,115 +2,115 @@
 
 
 CircularProgressBar::CircularProgressBar(QWidget *parent, TYPE typ) :
-    QWidget(parent), m_type(typ), renderVal(true), m_x(0)
+    QWidget(parent), _type(typ), _renderVal(true), _value(0)
 {
-    radius = qMin(this->width()/2, this->height()/2)-1;
-    center = QPoint(this->width()/2,this->height()/2);
-    fillColor = Qt::black;
-    valueFont.setFamily("calibri");
+    _radius = qMin(this->width()/2, this->height()/2)-1;
+    _center = QPoint(this->width()/2,this->height()/2);
+    _fillColor = Qt::black;
+    _valueFont.setFamily("calibri");
 }
 
 void CircularProgressBar::paintEvent(QPaintEvent* /*event*/)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.drawEllipse(center,radius,radius);
-    if(m_x < 0){
-        m_x=0;
+    painter.drawEllipse(_center,_radius,_radius);
+    if(_value < 0){
+        _value=0;
     }
-    if(m_x > 100){
-        m_x=100;
+    if(_value > 100){
+        _value=100;
     }
 
-    switch(m_type){
+    switch(_type){
     case FILLING:{
-        painter.setBrush(QBrush(fillColor));
-        painter.drawEllipse(center, radius*m_x/100, radius*m_x/100);
+        painter.setBrush(QBrush(_fillColor));
+        painter.drawEllipse(_center, _radius*_value/100, _radius*_value/100);
         break;
     }
     case ROUNDING:{
-        if(m_x != 0 && m_x != 100){
-            painter.setBrush(QBrush(fillColor));
-            double val = (double)m_x;
+        if(_value != 0 && _value != 100){
+            painter.setBrush(QBrush(_fillColor));
+            double val = (double)_value;
 
             int startAngle = 90 * 16;
             int spanAngle = val/100*360 * 16 * -1;
-            QRectF rectangle(center.x()-radius,center.y()-radius,radius*2,radius*2);
+            QRectF rectangle(_center.x()-_radius,_center.y()-_radius,_radius*2,_radius*2);
             painter.drawPie(rectangle,startAngle,spanAngle);
 
         }
-        if(m_x == 100){
-            painter.setBrush(QBrush(fillColor));
-            painter.drawEllipse(center, radius*m_x/100, radius*m_x/100);
+        if(_value == 100){
+            painter.setBrush(QBrush(_fillColor));
+            painter.drawEllipse(_center, _radius*_value/100, _radius*_value/100);
         }
         break;
     }
     }
 
-    if(renderVal){
-        QFontMetrics fm(valueFont);
-        int val_width = fm.width(QString::number(m_x)+"%");
-        QPoint point(center.x()-val_width/2,center.y()+fm.height()/3);
-        painter.setFont(valueFont);
-        painter.drawText(point, QString::number(m_x)+"%");
+    if(_renderVal){
+        QFontMetrics fm(_valueFont);
+        int val_width = fm.width(QString::number(_value)+"%");
+        QPoint point(_center.x()-val_width/2,_center.y()+fm.height()/3);
+        painter.setFont(_valueFont);
+        painter.drawText(point, QString::number(_value)+"%");
     }
 
 }
 
 void CircularProgressBar::resizeEvent(QResizeEvent* /*event*/)
 {
-    center = QPoint(this->width()/2,this->height()/2);
-    radius = qMin(this->width()/2, this->height()/2)-1;
-    valueFont.setPixelSize((int)(2.0/10*radius));
+    _center = QPoint(this->width()/2,this->height()/2);
+    _radius = qMin(this->width()/2, this->height()/2)-1;
+    _valueFont.setPixelSize((int)(2.0/10*_radius));
     repaint();
 }
 
-void CircularProgressBar::setValue(int x)
+void CircularProgressBar::setValue(int value)
 {
-    m_x = x;
-    emit valueChanged(m_x);
+    _value = value;
+    emit valueChanged(_value);
     repaint();
 }
 
 int CircularProgressBar::getValue() const
 {
-    return m_x;
+    return _value;
 }
 
 bool CircularProgressBar::isRenderValue() const
 {
-    return renderVal;
+    return _renderVal;
 }
 
 void CircularProgressBar::setColor(QColor color)
 {
-    fillColor = color;
+    _fillColor = color;
     repaint();
 }
 
 void CircularProgressBar::setType(CircularProgressBar::TYPE typ)
 {
-    m_type = typ;
+    _type = typ;
     repaint();
 }
 
 QPoint CircularProgressBar::getCenter() const
 {
-    return center;
+    return _center;
 }
 
 void CircularProgressBar::renderValue(bool b)
 {
-    renderVal = b;
+    _renderVal = b;
     repaint();
 }
 
 QFont CircularProgressBar::getValueFont() const
 {
-    return valueFont;
+    return _valueFont;
 }
 
 QColor CircularProgressBar::getColor() const
 {
-    return fillColor;
+    return _fillColor;
 }

@@ -39,19 +39,19 @@ protected:
 
 private:
 
-    TYPE m_type;
-    int radius;
-    bool renderVal;
-    int m_x;
-    QPoint center;
-    QColor fillColor;
-    QFont valueFont;
+    TYPE _type;
+    int _radius;
+    bool _renderVal;
+    int _value;
+    QPoint _center;
+    QColor _fillColor;
+    QFont _valueFont;
 
 signals:
-    void valueChanged(int x);       //This singnal is emited always when the setValue slot has occurred
+    void valueChanged(int value);       //This singnal is emited always when the setValue slot has occurred
 
 public slots:
-    void setValue(int x);           //Sets a value of progressbar (0.. 100)
+    void setValue(int value);           //Sets a value of progressbar (0.. 100)
 
 };
 
