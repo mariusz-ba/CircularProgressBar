@@ -26,7 +26,7 @@ public:
     void setType(TYPE typ);
     void renderValue(bool b);
 
-    int getValue() const;       //This fucntion returns a progressbar value which is stored ind m_x variable (0.. 100)
+    int getValue() const;       //This fucntion returns a progressbar value which is stored ind _value variable (0.. 100)
     bool isRenderValue() const;
     QPoint getCenter() const;
     QFont getValueFont() const;
